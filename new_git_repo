@@ -1,0 +1,14 @@
+#!/bin/sh
+
+SSH_SERVER="git@seanbehan.dev"
+
+if [ -z "$1" ]; then
+    printf "./new_repo name\n"
+    printf "error: specify the name of the new repo you want to create\n"
+    exit 1
+fi
+
+name="$1"
+ssh -t $SSH_SERVER << EOF
+    mkdir $name && cd $name && git init --bare
+EOF
